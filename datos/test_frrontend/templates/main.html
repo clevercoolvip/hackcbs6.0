@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      let x = [{
+        input2: 'column-dtype-name',
+        input1: 'column-name',
+      }];
+
+
+      function onDiv() {
+        let in1 = "input1" + Math.random();
+        let in2 = "input2" + Math.random();
+        let elem = `<div class="md:w-1/3">
+          <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+            Column Name
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="`+ in1 +`" id="`+ in1 +`" type="text">
+        </div>
+        <div class="md:w-1/3">
+          <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+             Datatype
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="`+ in2 +`" id="`+ in2 +`" type="text">
+        </div>`;
+        x.push({input1: in1, input2: in2});
+        document.getElementById('form-element').insertAdjacentHTML('beforeend', elem);
+      }
+
+      printVals = () => {
+        console.log("Chut", x);
+        for(let i of x){
+          let value1 = document.getElementById(i.input1).value;
+          let value2 = document.getElementById(i.input2).value;
+          console.log("Values", value1, value2);
+        }
+      }
+    </script>
+</head>
+<body>
+  <form class="w-full max-w-sm" method="post" action="/">
+    <div class="md:flex md:items-center mb-6" id="form-element">
+        <div class="md:w-1/3">
+          <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+            Column Name
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="column-name" id="column-name" type="text">
+        </div>
+        <div class="md:w-1/3">
+          <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+             Datatype
+          </label>
+        </div>
+        <div class="md:w-2/3">
+          <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="column-dtype-name" id="column-dtype-name" type="text">
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button" onclick="onDiv()">
+          ADD
+        </button>
+      </div>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button" onClick="printVals()">
+        Create
+      </button>
+    </form>
+</body>
+</html>

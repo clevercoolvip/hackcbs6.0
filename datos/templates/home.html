@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    const onCreateDbClick = () => {
+      window.location.href = "/column";
+      console.log('hello')
+    };
+    const onUploadClick = () => {
+
+    }
+  </script>
+</head>
+
+<body class="">
+  <img src="/static/background.png" class="h-full w-full absolute"/>
+  <section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Welcome to DatOS</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-white">Here we analyse your data for future betterment....</p>
+      </div>
+      <div class="flex flex-wrap -m-4 text-center ml-52">
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div class="border-2 border-gray-200 bg-white px-4 py-6 rounded-lg">
+            <button class="text-black font-bold text-lg" onclick="onCreateDbClick()">Create Db</button>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div class="border-2 border-gray-200 bg-white px-4 py-6 rounded-lg">
+            <form action = "/" method = "post" enctype="multipart/form-data"> 
+              <input type="file" name="file" />   
+              <p class="leading-relaxed text-black">In any format like csv,excel etc....</p>
+              <div>
+                <button class="text-black font-bold text-lg" style="background-color: gray; border-radius:20px;" onclick="onUploadClick()">Upload</button>
+              </div>
+          </form>
+          </div>
+        </div>
+        <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+          <div class="border-2 border-gray-200 bg-white px-4 py-6 rounded-lg">
+            <button class="text-black font-bold text-lg">Analyse Data</button>
+            <p class="leading-relaxed text-black">Analyse earlier uploaded data....</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

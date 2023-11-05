@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let x = [{
+            input2: 'column-dtype-name',
+            input1: 'column-name',
+        }];
+
+        let in1 = "input1" + Math.random();
+        let in2 = "input2" + Math.random();
+        let elem = `<div class="flex flex-wrap -mx-3 mb-6" id="form-element">
+            <div class="md:w-1/3">
+                <select
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="datatype" type="text" name="`+ in1 + `" id="` + in1 + `" placeholder="Jane">
+                    <optgroup label="Number">
+                        <option value="INT">int</option>
+                        <option value="TINYINT">tiny-int</option>
+                        <option value="BIGINT">big-int</option>
+                        <option value="FLOAT">float</option>
+                        <option value="REAL">real</option>
+                    </optgroup>
+                    <optgroup label="Data and time">
+                        <option value="DATE">date</option>
+                        <option value="TIME">time</option>
+                        <option value="DATATIME">date-time</option>
+                    </optgroup>
+                    <optgroup label="Character and String">
+                        <option value="CHAR">char</option>
+                        <option value="VARCHAR">varchar</option>
+                        <option value="TEXT">text</option>
+                    </optgroup>
+                    <optgroup label="Unicode Character string datatype">
+                        <option value="NCHAR">nchar</option>
+                        <option value="NVARCHAR">nvarchar</option>
+                        <option value="NTEXT">ntext</option>
+                    </optgroup>
+                </select>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button"
+                    onClick="onDeleteClick()">
+                    Delete
+                </button>
+            </div>
+            <div class="w-full md:w-1/2 px-3" id="col_name">
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-last-name" type="text" name="`+ in2 + `" id="` + in2 + `"  placeholder="column name">
+            </div>`;
+
+
+        const onAddButtonClick = () => {
+            x.push({ input1: in1, input2: in2 });
+            document.getElementById('form-element').insertAdjacentHTML('beforeend', elem);
+        }
+
+        const onCreateTableClick = () => {
+            console.log("Sex", x);
+            for (let i of x) {
+                let value1 = document.getElementById(i.input1).value;
+                let value2 = document.getElementById(i.input2).value;
+                console.log("Values", value1, value2);
+            }
+            let input_dt = $("#datatype").val();
+            $.ajax({
+                type: "POST",
+                url: "/process_data",
+                data: {input_data: input_dt},
+                success: function(response) {
+                    $("#result").html(response);
+                }
+            })
+        }
+
+        const onDeleteClick = () => {
+            console.log('delete is clicked')
+            x.pop({input1: in1, input2});
+            document.getElementById('form-element').remove(elem)
+        }
+    </script>
+</head>
+
+<body>
+    <header class="text-gray-400 bg-gray-900 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+                <a class="mr-5 hover:text-white">First Link</a>
+                <a class="mr-5 hover:text-white">Second Link</a>
+                <a class="mr-5 hover:text-white">Third Link</a>
+                <a class="hover:text-white">Fourth Link</a>
+            </nav>
+            <a
+                class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-white lg:items-center lg:justify-center mb-4 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+                    viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl xl:block lg:hidden">Dataos</span>
+            </a>
+            <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
+                <button
+                    class="inline-flex items-center bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-white mt-4 md:mt-0">Create
+                    Table
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    <form class="w-full max-w-lg my-3 ml-3" method="post" action="/">
+        <div class="flex flex-wrap -mx-3 mb-6" id="form-element">
+            <div class="md:w-1/3">
+                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                    Datatype
+                </label>
+                <select
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    id="datatype" type="text" placeholder="Jane">
+                    <optgroup label="Number">
+                        <option value="INT">int</option>
+                        <option value="TINYINT">tiny-int</option>
+                        <option value="BIGINT">big-int</option>
+                        <option value="FLOAT">float</option>
+                        <option value="REAL">real</option>
+                    </optgroup>
+                    <optgroup label="Data and time">
+                        <option value="DATE">date</option>
+                        <option value="TIME">time</option>
+                        <option value="DATATIME">date-time</option>
+                    </optgroup>
+                    <optgroup label="Character and String">
+                        <option value="CHAR">char</option>
+                        <option value="VARCHAR">varchar</option>
+                        <option value="TEXT">text</option>
+                    </optgroup>
+                    <optgroup label="Unicode Character string datatype">
+                        <option value="NCHAR">nchar</option>
+                        <option value="NVARCHAR">nvarchar</option>
+                        <option value="NTEXT">ntext</option>
+                    </optgroup>
+                </select>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button"
+                    onClick="onDeleteClick()">
+                    Delete
+                </button>
+            </div>
+            <div class="w-full md:w-1/2 px-3" id="col_name">
+                <label class="block tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                    column name
+                </label>
+                <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-last-name" type="text" placeholder="column name">
+            </div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button"
+                onclick="onAddButtonClick()">
+                ADD
+            </button>
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="button"
+            onClick="onCreateTableClick()">
+            Create
+        </button>
+    </form>
+    <div id="result"></div>
+</body>
+
+</html>
